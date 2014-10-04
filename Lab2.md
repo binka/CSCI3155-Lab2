@@ -1,4 +1,4 @@
-# Lab 1
+# Lab 2
 
 ## Lincoln Samelson
 ## Collaborators: Brian Gaydon, Ali Hakimi, Chris Gray
@@ -8,8 +8,9 @@
 
 _1. Grammars: Synthetic Examples._
 
-_A ::= A & A | V_
-_V ::= a | b_
+A ::= A & A | V
+
+V ::= a | b
 
 
 
