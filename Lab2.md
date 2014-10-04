@@ -102,7 +102,7 @@ V ::= a | b
 			    
 **(e)**
 
-	1. abcd
+	1. abcd  - Is in the language
 	
 				S
 			  /| |\
@@ -110,6 +110,56 @@ V ::= a | b
 			   |   |
 			   b   d
 			    
+	2. acccbd - Not in the langauge
+	
+				S
+			  /| |\
+			 a S c B
+			   |   |
+			   A   d
+			  /|
+			 c A
+			   |
+			   c
+
+	3. acccbcc  - Not in the language
+		
+				S
+			  /| |\
+			 a S c B
+			   |   |
+			   A   A
+			  /|   |\
+			 c A   c A
+			   |     |
+			   c     c
+
+		
+		   
+		
+	4. acd - Not in the language
+		
+				S
+			  /| |\
+			 a S c B
+			  /|   |
+			 A b   d
+			 |
+			 c
+		   
+		   
+		   
+	5. accc - In the language
+		   
+				S
+			  /| |\
+			 a S c B
+			   |   |
+			   A   A
+			   |   |
+			   c   c
+			   
+		   
 
 
 
