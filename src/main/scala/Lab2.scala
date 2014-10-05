@@ -54,7 +54,12 @@ object Lab2 extends jsy.util.JsyApplication {
     require(isValue(v))
     (v: @unchecked) match {
       case N(n) => n
-      case _ => throw new UnsupportedOperationException
+      case Undefined => Double.NaN
+      case S(s) => try {s.toDouble} catch {case _: NumberFormatException => Double.NaN}
+      case B(b) => b match {
+        case true => 1
+        case false => 0
+      }
     }
   }
   
@@ -62,6 +67,13 @@ object Lab2 extends jsy.util.JsyApplication {
     require(isValue(v))
     (v: @unchecked) match {
       case B(b) => b
+      case Undefined => false
+      case N(n) => n match {
+        case 0 => false
+        case _ if n.isNaN() => false
+        case _ => true
+      }
+      case S(s) => true
       case _ => throw new UnsupportedOperationException
     }
   }
@@ -71,6 +83,8 @@ object Lab2 extends jsy.util.JsyApplication {
     (v: @unchecked) match {
       case S(s) => s
       case Undefined => "undefined"
+      case N(n) => if (n.isWhole) "%.0f" format n else n.toString
+      case B(b) => b.toString
       case _ => throw new UnsupportedOperationException
     }
   }
@@ -80,11 +94,65 @@ object Lab2 extends jsy.util.JsyApplication {
     def eToVal(e: Expr): Expr = eval(env, e)
 
     e match {
-      /* Base Cases */
-      
-      /* Inductive Cases */
+      case Unary(Neg, e) => N(0-toNumber(eToVal(e)))
+      case Unary(Not, e) => B(!toBoolean(eToVal(e)))
+      case Binary(bop, e1, e2) => {
+        bop match 
+        {
+	      case Plus =>  {
+	        (e1, e2) match{
+		        case (S(_),_)|(_,S(_)) => S(toStr(eToVal(e1))+ toStr(eToVal(e2)))
+		        case (_,_) => N(toNumber(eToVal(e1))+toNumber(eToVal(e2)))          
+	        }
+	      }
+	      case Minus => N(toNumber(eToVal(e1))-toNumber(eToVal(e2)))
+	      	//Print(N(toNumber(eToVal(e1))-toNumber(eToVal(e2))))
+	      case Times =>N(toNumber(eToVal(e1))*toNumber(eToVal(e2)))
+	      case Div => {
+	        require(toNumber(eToVal(e1))!=0)
+	        N(toNumber(eToVal(e1))/toNumber(eToVal(e2)))
+	      }
+	      case Eq => B(eToVal(e1)==eToVal(e2))
+	      case Ne => B(eToVal(e1)!=eToVal(e2))
+	      case Lt => (e1, e2) match{
+		        case (S(s1),S(s2)) => B((s1)<(s2))
+		        case (_,_) => B(toNumber(eToVal(e1))<toNumber(eToVal(e2)))
+	      }
+	      case Le => (e1, e2) match{
+	         case (S(s1),S(s2)) => B((s1)<=(s2))
+		     case (_,_) =>B(toNumber(eToVal(e1))<=toNumber(eToVal(e2)))
+	      }
+	      case Gt =>(e1, e2) match{
+	         case (S(s1),S(s2)) => B((s1)>(s2))
+	         case (_,_) =>B(toNumber(eToVal(e1))>toNumber(eToVal(e2)))
+	      }
+	      case Ge =>(e1, e2) match{
+	        case (S(s1),S(s2)) => B((s1)>=(s2))
+	        case (_,_) =>B(toNumber(eToVal(e1))>=toNumber(eToVal(e2)))
+	      }
+	      case And => 
+	        if(!toBoolean(eToVal(e1))) eToVal(e1)
+	        else eToVal(e2)//if toBoolean(e1)==false return e1 in its original form, else return e2 in its original form
+	      case Or => 
+	        if(toBoolean(eToVal(e1))) eToVal(e1)
+	        else eToVal(e2)
+	      case Seq => {
+	        eToVal(e1)
+	        eToVal(e2)
+	      }   
+      }
+    }
+      case If(e1,e2,e3) =>
+        if(toBoolean(eToVal(e1))) eToVal(e2)
+        else eToVal(e3)
+      case ConstDecl(x, e1, e2) => {
+        val v1 =eToVal(e1)
+        val envp=extend(env,x,v1)
+        eval(envp,e2)
+      }
+      case Var(x) => get(env,x)
       case Print(e1) => println(pretty(eToVal(e1))); Undefined
-
+      case N(_) | B(_) | S(_) | Undefined => e
       case _ => throw new UnsupportedOperationException
     }
   }
