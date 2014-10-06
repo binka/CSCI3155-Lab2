@@ -212,18 +212,18 @@ V ::= a | b
 **Solutions**  
 
 
-	i.   1 << 2 - 1    = 2
+	i.   1 << 3   = 8
 		 
 		 
-	ii.  2 - 1 << 1    = 2
+	ii.  5 - 4 << 3    = 8
 		
 		
 	
 
-	iii. (1 << 2) - 1  = 7
+	iii. (5 << 3) - 4 = 36
 	    
 
-	iv. 2 - (1 << 1)   = 0
+	iv. 5 - (4 << 3) = -27
 	    
 
 	Based on this information, we assumed that - takes precedence over <<.
