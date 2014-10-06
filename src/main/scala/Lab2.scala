@@ -3,35 +3,11 @@ object Lab2 extends jsy.util.JsyApplication {
   import jsy.lab2.ast._
   
   /*
+   * Lincoln Samelson
    * CSCI 3155: Lab 2
+   * Collaborators: Ali Hakimi, Brian Gaydon, 
    */
 
-  /*
-   * Replace the 'throw new UnsupportedOperationException' expression with
-   * your code in each function.
-   * 
-   * Do not make other modifications to this template, such as
-   * - adding "extends App" or "extends Application" to your Lab object,
-   * - adding a "main" method, and
-   * - leaving any failing asserts.
-   * 
-   * Your lab will not be graded if it does not compile.
-   * 
-   * This template compiles without error. Before you submit comment out any
-   * code that does not compile or causes a failing assert.  Simply put in a
-   * 'throws new UnsupportedOperationException' as needed to get something
-   * that compiles without error.
-   */
-  
-  /* We represent a variable environment is as a map from a string of the
-   * variable name to the value to which it is bound.
-   * 
-   * You may use the following provided helper functions to manipulate
-   * environments, which are just thin wrappers around the Map type
-   * in the Scala standard library.  You can use the Scala standard
-   * library directly, but these are the only interfaces that you
-   * need.
-   */
   
   type Env = Map[String, Expr]
   val emp: Env = Map()
