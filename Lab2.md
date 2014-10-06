@@ -206,6 +206,48 @@ V ::= a | b
 					operator    operand    esuffix
 											  |
 										   epsilon  
+										   
+
+**(b)**  
+**Solutions**  
+
+
+	i.   1 << 2 - 1    = 2
+		 
+		 
+	ii.  2 - 1 << 1    = 2
+		
+		
+	
+
+	iii. (1 << 2) - 1  = 7
+	    
+
+	iv. 2 - (1 << 1)   = 0
+	    
+
+	Based on this information, we assumed that - takes precedence over <<.
+
+
+
+**(c)** 
+**Solutions**
+
+		<S> ::=  <Neg><term>.<N><exp> 
+		
+		<term> ::= <I><N> | Empty
+		
+		<exp> ::= E<Neg><I><N> | Empty  
+
+		<N> ::= <I><N> | <Z><N> | Empty
+		
+		<Neg> ::= - | Empty
+		
+		<I> ::= 1 | 2 | ... | 9 
+
+		<Z> ::= 0		
+		
+
 
 
 
