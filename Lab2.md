@@ -235,17 +235,17 @@ V ::= a | b
 
 		<S> ::=  <Neg><term>.<N><exp> 
 		
-		<term> ::= <I><N> | Empty
+		<term> ::= <A><N> | Empty
 		
 		<exp> ::= E<Neg><I><N> | Empty  
 
-		<N> ::= <I><N> | <Z><N> | Empty
+		<N> ::= <A><N> | <B><N> | Empty
 		
 		<Neg> ::= - | Empty
 		
-		<I> ::= 1 | 2 | ... | 9 
+		<A> ::= 1 | 2 | ... | 9 
 
-		<Z> ::= 0		
+		<B> ::= 0		
 		
 
 
