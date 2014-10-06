@@ -63,7 +63,7 @@ V ::= a | b
 	2. bbbab
 	    
 
-	       This grammar ensures all sentences derived from contain more than one 'a' sequentially.
+	       This grammar ensures all sentences contain more than one 'a' sequentially.
 	       Since B => aB or a,  AND S ::= AaBb, the grammar S already contains a single 'a' 
 	       S ::= AaBb => AbaBb since A => Ab
 					  => AbbaBb 
