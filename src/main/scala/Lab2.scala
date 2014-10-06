@@ -94,21 +94,26 @@ object Lab2 extends jsy.util.JsyApplication {
 		        case (S(s1),S(s2)) => B((s1)<(s2))
 		        case (_,_) => B(toNumber(eToVal(e1))<toNumber(eToVal(e2)))
 	      }
+	      
 	      case Le => (e1, e2) match{
 	         case (S(s1),S(s2)) => B((s1)<=(s2))
 		     case (_,_) =>B(toNumber(eToVal(e1))<=toNumber(eToVal(e2)))
 	      }
+	      
 	      case Gt =>(e1, e2) match{
 	         case (S(s1),S(s2)) => B((s1)>(s2))
 	         case (_,_) =>B(toNumber(eToVal(e1))>toNumber(eToVal(e2)))
 	      }
+	      
 	      case Ge =>(e1, e2) match{
 	        case (S(s1),S(s2)) => B((s1)>=(s2))
 	        case (_,_) =>B(toNumber(eToVal(e1))>=toNumber(eToVal(e2)))
 	      }
+	      
 	      case And => 
 	        if(!toBoolean(eToVal(e1))) eToVal(e1)
-	        else eToVal(e2)//if toBoolean(e1)==false return e1 in its original form, else return e2 in its original form
+	        else eToVal(e2)//if toBoolean(e1)==false, return e1 in its original form, else return e2
+	        
 	      case Or => 
 	        if(toBoolean(eToVal(e1))) eToVal(e1)
 	        else eToVal(e2)
@@ -121,6 +126,7 @@ object Lab2 extends jsy.util.JsyApplication {
       case If(e1,e2,e3) =>
         if(toBoolean(eToVal(e1))) eToVal(e2)
         else eToVal(e3)
+        
       case ConstDecl(x, e1, e2) => {
         val v1 =eToVal(e1)
         val envp=extend(env,x,v1)
